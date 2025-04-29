@@ -119,3 +119,41 @@ button {
   80%  { opacity: 1; }
   100% { opacity: 0; }
 }
+/* Game Show Background Effect */
+body {
+  background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
+  color: #fff;
+}
+
+/* Glowing Header */
+h1 {
+  color: #ffcc00;
+  text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffaa00, 0 0 30px #ff8800;
+}
+
+/* Glowing Timer Numbers */
+#timer {
+  font-weight: bold;
+  text-shadow: 0 0 5px #fff, 0 0 15px #00ffff, 0 0 30px #00ffff;
+}
+
+/* Buttons Glow */
+#stop-btn,
+#next-btn,
+#back-btn {
+  box-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(255,255,255,0.3);
+  transition: transform 0.2s ease;
+}
+#stop-btn:hover,
+#next-btn:hover,
+#back-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,255,255,0.7);
+}
+
+/* Box tiles glow effect */
+.box {
+  background: linear-gradient(to right, #ff0080, #7928ca);
+  box-shadow: 0 0 10px #ff0080, 0 0 20px #7928ca;
+  font-weight: bold;
+}
