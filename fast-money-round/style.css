@@ -1,40 +1,61 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+  color: white;
   margin: 0;
   padding: 0;
   text-align: center;
+  overflow-x: hidden;
 }
 
 .container {
-  max-width: 500px;
+  max-width: 600px;
   margin: 40px auto;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.8);
+  padding: 30px 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  animation: fadeInUp 1s ease-out;
 }
 
-h1 { margin-bottom: 10px; }
+@keyframes fadeInUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
 
-#timer {
-  font-size: 48px;
-  margin: 10px 0 20px;
-  background: linear-gradient(270deg, #ff8a00, #e52e71, #9b00ff, #00c6ff);
-  background-size: 800% 800%;
+h1 {
+  margin-bottom: 20px;
+  font-size: 32px;
+  background: linear-gradient(to right, gold, orange);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientMove 8s ease infinite;
 }
 
-.timer-fast {
-  animation: gradientMove 1s linear infinite;
+#timer {
+  font-size: 64px;
+  font-weight: bold;
+  margin: 20px 0;
+  background: linear-gradient(90deg, #00f2ff, #ff0066, #00f2ff);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientTimer 4s ease infinite;
 }
 
-@keyframes gradientMove {
+.timer-warning {
+  animation: gradientTimerFast 0.5s linear infinite;
+}
+
+@keyframes gradientTimer {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+@keyframes gradientTimerFast {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
 #question-board {
@@ -47,22 +68,26 @@ h1 { margin-bottom: 10px; }
 
 .tile-wrapper {
   position: relative;
-  width: 300px;
-  height: 60px;
+  width: 100%;
+  max-width: 400px;
+  height: 70px;
+  perspective: 800px;
 }
 
 .question-text {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ddd;
-  color: #000;
+  background: #222;
+  color: #fff;
   padding: 15px;
-  border-radius: 6px;
-  font-size: 18px;
+  border-radius: 8px;
+  font-size: 20px;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  border: 2px solid #fff;
+  transition: transform 0.6s;
 }
 
 .box {
@@ -71,19 +96,20 @@ h1 { margin-bottom: 10px; }
   left: 0;
   width: 100%;
   height: 100%;
-  background: #333;
+  background: linear-gradient(to bottom right, #ff0066, #6600ff);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  border-radius: 6px;
+  font-size: 20px;
+  border-radius: 8px;
   cursor: pointer;
   transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  box-shadow: 0 0 15px rgba(255,255,255,0.2);
 }
 
 .slide-out {
-  transform: translateX(300px);
+  transform: translateX(600px) rotateY(180deg);
   opacity: 0;
 }
 
@@ -94,54 +120,77 @@ h1 { margin-bottom: 10px; }
 #stop-btn,
 #next-btn,
 #back-btn {
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 18px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 20px;
+  transition: background 0.3s ease;
 }
 
-#stop-btn { background: #c00; color: white; }
-#next-btn { background: #080; color: white; }
-#back-btn { background: #0066cc; color: white; }
+#stop-btn {
+  background: crimson;
+  color: white;
+}
+#stop-btn:hover {
+  background: darkred;
+}
+
+#next-btn {
+  background: #28a745;
+  color: white;
+}
+#next-btn:hover {
+  background: #1e7e34;
+}
+
+#back-btn {
+  background: #007bff;
+  color: white;
+}
+#back-btn:hover {
+  background: #0056b3;
+}
 
 #times-up {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 64px;
+  font-size: 72px;
   color: red;
   font-weight: bold;
   z-index: 1000;
-  animation: pop 1s ease;
+  animation: pulsePop 1s ease;
+  text-shadow: 0 0 10px white;
 }
-
-@keyframes pop {
-  0% { transform: scale(0); opacity: 0; }
-  50% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
+@keyframes pulsePop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  50%  { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1);   opacity: 1; }
 }
 
 .flash-red {
   animation: flashRed 1s infinite alternate;
 }
-
 @keyframes flashRed {
-  from { background-color: red; }
+  from { background-color: red;    }
   to   { background-color: darkred; }
 }
 
-/* Timer shake animation */
-.timer-shake {
-  animation: shake 0.3s infinite;
+#answer-board h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
 }
-
-@keyframes shake {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-2px, 2px); }
-  50% { transform: translate(2px, -2px); }
-  75% { transform: translate(-2px, -2px); }
-  100% { transform: translate(2px, 2px); }
+#answer-board ul {
+  list-style: none;
+  padding: 0;
+}
+#answer-board li {
+  background: #444;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 18px;
 }
